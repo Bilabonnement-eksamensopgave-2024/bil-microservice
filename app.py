@@ -86,6 +86,19 @@ def post_cars():
     return jsonify(result[1]), result[0]
 
 
+#------------------------- DELETE /cars
+@app.route('/cars/<int:id>', methods=['DELETE'])
+#@auth.role_required('admin') 
+#@swag_from('swagger/delete_user.yaml')
+def delete_car(id):
+    status, result = cars.delete_car_by_id(id)
+    return jsonify(result), status
+
+
+
+
+
+
 def _data_to_cars_dict(data):
     """
     Validate input data and transform it into a dictionary compatible with the database schema.
