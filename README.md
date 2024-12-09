@@ -32,13 +32,16 @@ This microservice provides endpoints to manage cars in a system, including addin
 
 
 2. Create a virtual environment and activate it:
+    ```bash
    python3 -m venv venv
    source venv/bin/activate
 
 3. Install dependencies:
+    ```bash
     pip install -r requirements.txt
 
 4. Run the microservice:
+    ```bash
     python app.py
 
 5.Access the service at http://127.0.0.1:5000.
