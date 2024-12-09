@@ -1,0 +1,89 @@
+post_cars.yaml:
+tags:
+  - name: Cars
+summary: Add a new car
+description: Adds a new car to the inventory with the specified details.
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - car_brand
+          - fuel_type
+          - purchase_date
+          - purchase_price
+        properties:
+          car_id:
+            type: integer
+            description: Unique identifier for the car (optional, auto-incremented if not provided).
+            example: 123
+          car_brand:
+            type: string
+            description: Brand of the car.
+            example: "Toyota"
+          car_type:
+            type: string
+            description: Type or model of the car (optional).
+            example: "Sedan"
+          fuel_type:
+            type: string
+            description: Type of fuel the car uses.
+            example: "Diesel"
+          purchase_date:
+            type: string
+            format: date
+            description: Purchase date of the car in 'YYYY-MM-DD' format.
+            example: "2024-01-01"
+          purchase_price:
+            type: integer
+            description: Price at which the car was purchased.
+            example: 20000
+          km_driven_since_last_end_subscription:
+            type: integer
+            description: Kilometers driven since the last subscription ended (default is 0).
+            example: 1000
+          is_avaliable:
+            type: boolean
+            description: Indicates if the car is available (default is true).
+            example: true
+responses:
+  201:
+    description: Car added successfully
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: "Car added successfully"
+            car_id:
+              type: integer
+              example: 123
+  400:
+    description: Invalid request
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: string
+              example: "Missing required field: car_brand"
+  500:
+    description: Internal server error
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: string
+              example: "An unexpected error occurred"
+security:
+  - cookieAuth: []
+x-swagger-router-controller: post_cars
+x-swagger-roles:
+  - admin

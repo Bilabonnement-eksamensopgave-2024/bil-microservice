@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request, make_response
 import requests
 import os
+import auth
 from dotenv import load_dotenv
 from flasgger import swag_from
 from datetime import datetime
@@ -17,14 +18,74 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 BASE_ADMIN_URL = ""
 
-# Initialize Swagger
-#init_swagger(app)
+
+# ----------------------------------------------------- GET /
+@app.route('/', methods=['GET'])
+def service_info():
+    return jsonify({
+        "service": "Car Management Microservice",
+        "description": "This microservice handles car-related operations such as adding cars, retrieving car details, and managing availability.",
+        "endpoints": [
+            {
+                "path": "/cars",
+                "method": "POST",
+                "description": "Add a new car to the system",
+                "response": "JSON object with success or error message",
+                "role_required": "admin"
+            },
+            {
+                "path": "/cars",
+                "method": "GET",
+                "description": "Retrieve a list of all cars",
+                "response": "JSON array of car objects",
+                "role_required": "admin"
+            },
+            {
+                "path": "/cars/<int:id>",
+                "method": "GET",
+                "description": "Retrieve details of a specific car by ID",
+                "response": "JSON object with car details",
+                "role_required": "admin"
+            },
+            {
+                "path": "/cars/<int:id>",
+                "method": "PATCH",
+                "description": "Update details of a specific car (e.g., availability or kilometers driven)",
+                "response": "JSON object with success or error message",
+                "role_required": "admin"
+            },
+            {
+                "path": "/cars/<int:id>",
+                "method": "DELETE",
+                "description": "Delete a car by ID",
+                "response": "JSON object with success or error message",
+                "role_required": "admin"
+            },
+            {
+                "path": "/cars/availability",
+                "method": "GET",
+                "description": "Check the availability of all cars",
+                "response": "JSON array of available cars",
+                "role_required": "none"
+            },
+            {
+                "path": "/health",
+                "method": "GET",
+                "description": "Check the health status of the microservice",
+                "response": "JSON object indicating the health status",
+                "role_required": "none"
+            }
+        ]
+    })
+
+
+
 
 
 #-------------------------- GET /cars 
 @app.route('/cars', methods=['GET']) 
-#@swag_from('swagger/get_cars.yaml') #TODO
-#@role_required('user') # TODO UPDATE LATER
+@swag_from('swagger/get_cars.yaml')
+@auth.role_required('admin')
 def cars_get():
     
     status, result = cars.get_cars()
@@ -34,8 +95,8 @@ def cars_get():
 
 #-------------------------- GET /cars/avaliable
 @app.route('/cars/avaliable', methods=['GET']) 
-#@swag_from('swagger/get_cars.yaml') #TODO
-#@role_required('user') # TODO UPDATE LATER
+@swag_from('swagger/get_avaliable_cars.yaml')
+@auth.role_required('admin')
 def avaliable_cars_get():
     
     status, result = cars.get_available_cars()
@@ -46,8 +107,8 @@ def avaliable_cars_get():
 
 #-------------------------- GET /car/id
 @app.route('/cars/<int:id>', methods=['GET'])
-#@swag_from('swagger/get_damage_type_by_id.yaml')
-#@role_required('user') # TODO UPDATE LATER
+@swag_from('swagger/get_cars_by_id.yaml')
+@auth.role_required('admin')
 def get_car_by_id(id):
     status, result = cars.get_car_by_id(id)
 
@@ -56,8 +117,8 @@ def get_car_by_id(id):
 
 #--------------------------- PATCH /car/id
 @app.route('/cars/<int:id>', methods=['PATCH'])
-#@swag_from('swagger/get_damage_type_by_id.yaml')
-#@role_required('user') # TODO UPDATE LATER
+@swag_from('swagger/patch_car.yaml')
+@auth.role_required('admin')
 def patch_car(id):    
     data = request.json
     
@@ -69,8 +130,8 @@ def patch_car(id):
 
 #-------------------------- POST /cars
 @app.route('/cars', methods=['POST'])
-#@swag_from('swagger/post_subscriptions.yaml') #TODO
-#@role_required('user') # TODO UPDATE LATER
+@swag_from('swagger/post_car.yaml')
+@auth.role_required('admin')
 def post_cars():
     data = request.json
 
@@ -88,11 +149,23 @@ def post_cars():
 
 #------------------------- DELETE /cars
 @app.route('/cars/<int:id>', methods=['DELETE'])
-#@auth.role_required('admin') 
-#@swag_from('swagger/delete_user.yaml')
+@auth.role_required('admin')
+@swag_from('swagger/delete_car.yaml')
 def delete_car(id):
     status, result = cars.delete_car_by_id(id)
     return jsonify(result), status
+
+
+
+# ----------------------------------------------------- GET /health
+@app.route('/health', methods=['GET'])
+def health_check():
+    return jsonify({"status": "healthy"}), 200
+
+
+
+
+
 
 
 

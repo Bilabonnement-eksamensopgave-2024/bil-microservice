@@ -39,7 +39,7 @@ def role_required(*roles):
             try:
                 payload = decode_token(token)
                 if not any(role in payload['roles'] for role in roles):
-                    return jsonify({'message': 'You do not have permission to access this endpoint! Beacuse of your role'}), 403
+                    return jsonify({'message': 'You do not have permission to access this endpoint!'}), 403
             except Exception as e:
                 return jsonify({'message': str(e)}), 401
 

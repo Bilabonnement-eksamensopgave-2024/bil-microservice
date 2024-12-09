@@ -1,0 +1,40 @@
+tags:
+  - name: Cars
+summary: Get available cars
+description: Retrieve a list of cars that are currently available.
+parameters:
+  - in: cookie
+    name: Authorization
+    required: true
+    schema:
+      type: string
+    description: JWT token with the required role - ['admin']
+responses:
+  200:
+    description: A list of available cars
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            type: object
+            properties:
+              car_id:
+                type: integer
+              car_brand:
+                type: string
+              is_available:
+                type: boolean
+  500:
+    description: Internal server error
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: string
+security:
+  - cookieAuth: []
+x-swagger-roles:
+  - admin
