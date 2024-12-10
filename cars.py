@@ -12,7 +12,7 @@ def create_table():
     with sqlite3.connect(DB_PATH) as conn: 
         cur = conn.cursor() 
         cur.execute(
-            f'''CREATE TABLE {TABLE_NAME} 
+            f'''CREATE TABLE IF NOT EXISTS {TABLE_NAME} 
             (
                 car_id INTEGER PRIMARY KEY AUTOINCREMENT, 
                 car_brand TEXT, 
