@@ -37,7 +37,7 @@ def get_cars():
             data = cur.fetchall()
             
             if not data:
-                return [404, {"message": "Cars not found"}]
+                return [204, {"message": "No cars in data"}]
                     
             return [200, [dict(row) for row in data]]
 
@@ -57,7 +57,7 @@ def get_available_cars():
             data = cur.fetchall()
             
             if not data:
-                return [404, {"message": "No available cars found"}]
+                return [204, {"message": "No available cars in data"}]
                     
             return [200, [dict(row) for row in data]]
 
@@ -75,7 +75,7 @@ def get_car_by_id(id):
             data = cur.fetchone()
             
             if not data:
-                return [404, {"message": "Car not found by id"}]
+                return [204, {"message": "No car has id in data"}]
                     
             return [200, dict(data)]
 
@@ -109,7 +109,7 @@ def update_car(id, data):
 
             cur.execute(query)
             if cur.rowcount == 0:
-                return [404, {"message": "Car not found."}]
+                return [204, {"message": "Car not in data."}]
             
             return [201, {"message": "Car updated successfully."}]
 
@@ -127,7 +127,7 @@ def delete_car_by_id(id):
             cur.execute(f'DELETE FROM {TABLE_NAME} WHERE car_id = ?', (id,))
             
             if cur.rowcount == 0:
-                return [404, {"message": "Car not found."}]
+                return [204, {"message": "Car not in data."}]
             
             return [200, {"message": f"Car deleted from {TABLE_NAME} successfully."}]
 

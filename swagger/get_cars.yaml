@@ -8,7 +8,7 @@ parameters:
     required: true
     schema:
       type: string
-    description: JWT token with the required role - ['admin']
+    description: JWT token with the required role - ['admin','maintenance']
 responses:
   200:
     description: A list of cars
@@ -38,3 +38,4 @@ security:
   - cookieAuth: []
 x-swagger-roles:
   - admin
+  - maintenance

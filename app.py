@@ -87,7 +87,7 @@ def service_info():
 #-------------------------- GET /cars 
 @app.route('/cars', methods=['GET']) 
 @swag_from('swagger/get_cars.yaml')
-@auth.role_required('admin')
+@auth.role_required('admin','maintenance')
 def cars_get():
     
     status, result = cars.get_cars()
@@ -98,7 +98,7 @@ def cars_get():
 #-------------------------- GET /cars/available
 @app.route('/cars/available', methods=['GET']) 
 @swag_from('swagger/get_available_cars.yaml')
-@auth.role_required('admin')
+@auth.role_required('admin','sales')
 def available_cars_get():
     
     status, result = cars.get_available_cars()
@@ -120,7 +120,7 @@ def get_car_by_id(id):
 #--------------------------- PATCH /car/id
 @app.route('/cars/<int:id>', methods=['PATCH'])
 @swag_from('swagger/patch_car.yaml')
-@auth.role_required('admin')
+@auth.role_required('admin','maintenance')
 def patch_car(id):    
     data = request.json
     
