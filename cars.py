@@ -16,12 +16,12 @@ def create_table():
             (
                 car_id INTEGER PRIMARY KEY AUTOINCREMENT, 
                 car_brand TEXT, 
-                car_type TEXT DEFUALT NULL, 
+                car_type TEXT DEFAULT NULL, 
                 fuel_type TEXT, 
                 purchase_date DATE, 
                 purchase_price INTEGER,
                 km_driven_since_last_end_subscription INTEGER,
-                is_avaliable BOOLEAN DEFUALT TRUE
+                is_available BOOLEAN DEFAULT TRUE
             )'''
         )
 create_table()
@@ -53,7 +53,7 @@ def get_available_cars():
             cur = conn.cursor()
             
             cur.execute(f'''SELECT * FROM {TABLE_NAME} 
-                        WHERE is_avaliable = 1''')
+                        WHERE is_available = 1''')
             data = cur.fetchall()
             
             if not data:
@@ -152,7 +152,7 @@ def add_car(data):
                     purchase_date,
                     purchase_price,
                     km_driven_since_last_end_subscription,
-                    is_avaliable
+                    is_available
                 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?) ''', 
                 (
                     data.get('car_id'), 
@@ -162,7 +162,7 @@ def add_car(data):
                     data.get('purchase_date'), 
                     data.get('purchase_price'), 
                     data.get('km_driven_since_last_end_subscription'), 
-                    data.get('is_avaliable')
+                    data.get('is_available')
                 )
             )
 

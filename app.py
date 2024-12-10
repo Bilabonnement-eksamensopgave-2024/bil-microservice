@@ -198,7 +198,7 @@ def _data_to_cars_dict(data):
             "purchase_date": purchase_date,  # Store date in ISO 8601 format
             "purchase_price": int(data['purchase_price']),
             "km_driven_since_last_end_subscription": data.get('km_driven_since_last_end_subscription', 0),
-            "is_avaliable": bool(data.get('is_avaliable', True))  # Default to True if not provided
+            "is_available": bool(data.get('is_available', True))  # Default to True if not provided
         }
     except Exception as e:
         raise ValueError(str(e))
