@@ -5,6 +5,7 @@ import auth
 from dotenv import load_dotenv
 from flasgger import swag_from
 from datetime import datetime
+from swagger.config import init_swagger
 # from swagger.config import init_swagger
 import cars
 #from auth import role_required
@@ -14,6 +15,7 @@ load_dotenv()
 
 app = Flask(__name__)
 
+init_swagger(app)
 # Configuration
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 BASE_ADMIN_URL = ""
