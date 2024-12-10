@@ -93,11 +93,11 @@ def cars_get():
     return jsonify(result), status
 
 
-#-------------------------- GET /cars/avaliable
-@app.route('/cars/avaliable', methods=['GET']) 
-@swag_from('swagger/get_avaliable_cars.yaml')
+#-------------------------- GET /cars/available
+@app.route('/cars/available', methods=['GET']) 
+@swag_from('swagger/get_available_cars.yaml')
 @auth.role_required('admin')
-def avaliable_cars_get():
+def available_cars_get():
     
     status, result = cars.get_available_cars()
 
