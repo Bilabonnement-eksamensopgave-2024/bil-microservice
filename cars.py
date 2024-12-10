@@ -11,7 +11,6 @@ TABLE_NAME = "cars"
 def create_table(): 
     with sqlite3.connect(DB_PATH) as conn: 
         cur = conn.cursor() 
-        cur.execute('DROP TABLE cars')
         cur.execute(
             f'''CREATE TABLE IF NOT EXISTS {TABLE_NAME} 
             (
