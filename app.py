@@ -110,7 +110,7 @@ def available_cars_get():
 #-------------------------- GET /car/id
 @app.route('/cars/<int:id>', methods=['GET'])
 @swag_from('swagger/get_cars_by_id.yaml')
-@auth.role_required('admin')
+@auth.role_required('admin','maintenance')
 def get_car_by_id(id):
     status, result = cars.get_car_by_id(id)
 
