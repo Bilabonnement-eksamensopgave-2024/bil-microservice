@@ -2,9 +2,38 @@
 
 ## Overview
 
-The Car Microservice is responsible for handling car-related operations such as adding cars, retrieving car details, and managing the availability of cars. It provides a simple API for interacting with the car database.
+The Car Management Microservice is responsible for handling car-related operations such as adding cars, retrieving car details, and managing the availability of cars. It provides a simple API for interacting with the car database. 
+It is designed as part of a microservice architecture, enabling independent development, deployment, and scaling. The Car Management Microservice interacts with other services in the system to provide a seamless experience within the overall application.
 
-### Domain Model
+## Core Functionalities
+
+### Features
+
+- **Add Car**: Ability to add a new car to the system.
+- **Retrieve Cars**: Retrieve a list of all cars in the system.
+- **Retrieve Car by ID**: Get detailed information of a specific car by its ID.
+- **Update Car**: Update the details of a specific car.
+- **Delete Car**: Delete a car from the system.
+- **Check Availability**: Check the availability status of all cars.
+
+### CRUD Operations
+- **Create**: Add new cars to the database.
+- **Read**: Retrieve all cars, specific car details, or available cars.
+- **Update**: Modify details of an existing car (e.g., kilometers driven, availability).
+- **Delete**: Remove cars from the database by their ID.
+
+### JWT Authentication
+JWTs are used for secure access to endpoints. Each JWT includes a role claim that determines the user's permissions:
+
+- **Admin**: Access to all endpoints, including adding, updating, and deleting cars.
+- **Maintenance**: Access to read and update car details.
+- **Sales**: Access to view available cars.
+
+### Token Validation
+1. Tokens are validated for authenticity.
+2. Roles are verified before granting access to protected endpoints.
+
+## Domain Model
 The domain model of this service revolves around a `Car` entity with the following attributes:
 
 ``` mermaid
@@ -38,36 +67,6 @@ classDiagram
 
 This service follows a microservice architecture, where it operates independently while being able to interact with other services in the overall application.
 
-## Architecture Diagram
-*(Insert Architecture Diagram here)*
-
-## Features
-
-- **Add Car**: Ability to add a new car to the system.
-- **Retrieve Cars**: Retrieve a list of all cars in the system.
-- **Retrieve Car by ID**: Get detailed information of a specific car by its ID.
-- **Update Car**: Update the details of a specific car.
-- **Delete Car**: Delete a car from the system.
-- **Check Availability**: Check the availability status of all cars.
-
-### JWT Authentication
-The service uses JWT for securing API endpoints, ensuring only authorized users can perform sensitive operations like adding, updating, or deleting cars.
-
-## Database Structure
-
-The database used by this microservice is an SQLite3 database with a table `cars` that holds the following fields:
-
-| Field                                      | Type        | Description                                        |
-|--------------------------------------------|-------------|----------------------------------------------------|
-| `car_id`                                   | INTEGER     | Primary Key (auto-incremented)                     |
-| `car_brand`                                | TEXT        | Brand of the car                                   |
-| `car_type`                                 | TEXT        | Type of the car (optional)                         |
-| `fuel_type`                                | TEXT        | Fuel type used by the car                          |
-| `purchase_date`                            | DATE        | Date of purchase                                   |
-| `purchase_price`                           | INTEGER     | Purchase price of the car                          |
-| `km_driven_since_last_end_subscription`    | INTEGER     | Kilometers driven since the last maintenance       |
-| `is_available`                             | BOOLEAN     | Availability status of the car (true or false)     |
-
 ## Technology Stack
 
 - **Programming Language**: Python
@@ -83,16 +82,15 @@ The following environment variables are required for the service:
 
 | Environment Variable | Description                                      |
 |----------------------|--------------------------------------------------|
-| `SECRET_KEY`         | Secret key used for JWT authentication.          |
+| `SECRET_KEY`         | Secret key used for the application.             |
 | `DB_PATH`            | Path to the SQLite3 database file.               |
-| `PORT`               | Port the Flask app will run on (default 5002).    |
 
 ## Endpoints
 
 ### Base URL
 
-- **Local**: http://localhost:5002
-- **Production (Azure)**: `<Azure App URL>`
+- **Local**: [Localhost URL](http://localhost:5002) 
+- **Production (Azure)**: [Azure URL](https://https://car-microservice-ayhzdgdrfxgrdgby.northeurope-01.azurewebsites.net)
 
 ### Endpoint Documentation
 
@@ -109,5 +107,5 @@ The following environment variables are required for the service:
 ### Swagger Documentation
 
 Swagger UI for API documentation is available at:  
-`<Base URL>/docs`
+[Swagger URL](https://https://car-microservice-ayhzdgdrfxgrdgby.northeurope-01.azurewebsites.net/docs)
 
