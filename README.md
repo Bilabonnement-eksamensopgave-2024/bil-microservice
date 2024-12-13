@@ -62,12 +62,12 @@ classDiagram
         Int purchase_price
         Int km_driven_since_last_end_subscription
         Boolean is_available
-        get_cars() List
-        get_available_cars() List
-        get_car_by_id(car_id: Int) Dict
-        update_car(updated_car: Dict) String
-        delete_car(car_id: Int) String
-        add_car(new_car: Dict) String
+        get_cars() : List
+        get_available_cars() : List
+        get_car_by_id(id : Int) : Dict  
+        update_car(id : Int, data : Any) : String
+        delete_car_by_id(id : Int) : String
+        add_car(new_car : Dict) : String
     }
 ```
 
