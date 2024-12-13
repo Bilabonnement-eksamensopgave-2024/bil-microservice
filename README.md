@@ -1,5 +1,20 @@
 # Car Management Microservice
 
+## Table of Contents
+- [Overview](#overview)
+- [Core Functionalities](#core-functionalities)
+  - [Features](#features)
+  - [CRUD Operations](#crud-operations)
+  - [JWT Authentication](#jwt-authentication)
+  - [Token Validation](#token-validation)
+- [Domain Model](#domain-model)
+- [Technology Stack](#technology-stack)
+- [Environment Variables](#environment-variables)
+- [Endpoints](#endpoints)
+  - [Base URL](#base-url)
+  - [Endpoint Documentation](#endpoint-documentation)
+- [Swagger Documentation](#swagger-documentation)
+
 ## Overview
 
 The Car Management Microservice is responsible for handling car-related operations such as adding cars, retrieving car details, and managing the availability of cars. It provides a simple API for interacting with the car database. 
